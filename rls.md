@@ -200,8 +200,49 @@ DROP POLICY restrict_deletes_pwi_core ON pghyd_employees;
 ```
 
 ### Default privileges
-
+```
 SELECT defaclrole::regrole AS grantor, defaclnamespace::regnamespace AS schema, defaclobjtype AS object_type, defaclacl AS privileges from pg_default_acl;
 
 revoke usage on schema public from auser;
 ALTER DEFAULT PRIVILEGES IN SCHEMA public REVOKE ALL PRIVILEGES ON TABLES FROM postgres;
+```
+
+### Few commands
+
+```
+## Check Role Privileges
+
+SELECT r.rolname, r.rolsuper, r.rolinherit, r.rolcreaterole, r.rolcreatedb, r.rolcanlogin, r.rolreplication
+FROM pg_roles r;
+
+## Check Table-Level Privileges
+SELECT grantee, table_schema, table_name, privilege_type
+FROM information_schema.role_table_grants
+WHERE table_name = 'pghyd_employees';
+
+## Check Column-Level Privileges
+
+SELECT grantee, table_schema, table_name, column_name, privilege_type
+FROM information_schema.column_privileges
+WHERE table_name = 'pghyd_employees';
+
+##  Check Row-Level Security (RLS) Policies
+
+select * from pg_policies;
+
+##  Check Default Privileges
+
+SELECT defaclrole::regrole, defaclnamespace::regnamespace, defaclobjtype, defaclacl
+FROM pg_default_acl
+WHERE defaclrole = 'pghyd_core'::regrole;
+
+```
+
+
+
+
+
+
+
+
+

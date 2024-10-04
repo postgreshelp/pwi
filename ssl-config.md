@@ -36,5 +36,34 @@ mkdir ~/.postgresql
 scp client.crt client.key ca.crt 192.168.113.137:/home/postgres.postgresql/
 chmod 600 /home/postgres/.postgresql/client.key
 
+
+##Checking
+
+hostssl    all    all    0.0.0.0/0    md5
+
+[postgres@p1 .postgresql]$ psql -h 10.128.0.17
+Password for user postgres: 
+psql (16.4, server 17.0)
+WARNING: psql major version 16, server major version 17.
+         Some psql features might not work.
+SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, compression: off)
+Type "help" for help.
+
+postgres=#
+
+hostssl    all    all    0.0.0.0/0    cert
+
+[postgres@p1 .postgresql]$ psql -h 10.128.0.17
+Password for user postgres: 
+psql (16.4, server 17.0)
+WARNING: psql major version 16, server major version 17.
+         Some psql features might not work.
+SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, compression: off)
+Type "help" for help.
+
+postgres=#
+
+chmod 600 client.key
+
 psql "host=192.168.113.133 dbname=postgres user=postgres sslmode=verify-full sslcert=client.crt sslkey=client.key sslrootcert=ca.crt"
 ```

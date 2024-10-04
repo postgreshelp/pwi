@@ -70,4 +70,10 @@ ALTER TABLE .. FORCE ROW LEVEL SECURITY;
 ALTER TABLE .. NO FORCE ROW LEVEL SECURITY;
 
 Ref: https://www.enterprisedb.com/postgres-tutorials/how-implement-column-and-row-level-security-postgresql
+
+SELECT defaclrole::regrole AS grantor, defaclnamespace::regnamespace AS schema, defaclobjtype AS object_type, defaclacl AS privileges from pg_default_acl;
+
+revoke usage on schema public from auser; ALTER DEFAULT PRIVILEGES IN SCHEMA public REVOKE ALL PRIVILEGES ON TABLES FROM postgres;
+
+
 ```

@@ -114,7 +114,7 @@ USING (FALSE);
 -- Sample data insertion (you will need to use pgcrypto for phone_number)
 -- Sample data insertion with pgcrypto for phone_number
 
-## Create extension pgcrypto
+-- Create extension pgcrypto
 
 CREATE extension IF NOT EXISTS pgcrypto;
 

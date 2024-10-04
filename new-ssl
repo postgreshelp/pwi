@@ -11,8 +11,8 @@ openssl x509 -req -in server.csr -CA root.crt -CAkey root.key -CAcreateserial -o
 chmod 600 server.key
 
 #Create the Client Certificate
-openssl genpkey -algorithm RSA -out client.key
-openssl req -new -key postgresql.key -out postgresql.csr -subj "/CN=postgres"
+openssl genpkey -algorithm RSA -out postgresql.key
+openssl req -new -key postgresql.key -out postgresql.csr -subj "/CN=192.168.113.137"
 openssl x509 -req -in postgresql.csr -CA root.crt -CAkey root.key -CAcreateserial -out postgresql.crt -days 365
 chmod 600 postgresql.key
 
@@ -32,7 +32,7 @@ hostssl    all    all    0.0.0.0/0    cert
 
 ## Make changes in client side
 mkdir ~/.postgresql
-scp postgresql.crt postgresql.key ca.crt 192.168.113.137:/home/postgres.postgresql/
+scp postgresql.key postgresql.crt root.crt 192.168.113.137:/home/postgres/.postgresql
 chmod 600 /home/postgres/.postgresql/postgresql.key
 
 ## Rename the files

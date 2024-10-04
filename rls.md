@@ -158,6 +158,10 @@ SET ROLE pwi_core;
 SELECT id, name, department, salary, organization, finalized, pgp_sym_decrypt(phone_number, 'mysecretpass') AS decrypted_phone_number
 FROM pghyd_employees;  -- Full access to all records
 
+update pghyd_employees set salary=1000 where id=1;  -- can update
+
+delete from pghyd_employees  where id=1; -- cannot delete
+
 For pghyd_core User:
 
 SET ROLE pghyd_core;

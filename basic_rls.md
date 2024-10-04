@@ -55,7 +55,7 @@ create policy user1_policy on emp for all to public using (name=current_user);
 \c postgres user1
 
 select * from emp;
-```
+
 
 Other commands
 
@@ -64,3 +64,4 @@ ALTER TABLE .. FORCE ROW LEVEL SECURITY;
 ALTER TABLE .. NO FORCE ROW LEVEL SECURITY;
 
 Ref: https://www.enterprisedb.com/postgres-tutorials/how-implement-column-and-row-level-security-postgresql
+```

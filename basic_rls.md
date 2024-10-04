@@ -57,6 +57,11 @@ create policy user1_policy on emp for all to public using (name=current_user);
 
 select * from emp;
 
+SELECT nspname AS schema_name, 
+       pg_catalog.pg_get_userbyid(nspowner) AS owner, 
+       nspacl 
+FROM pg_namespace 
+;
 
 Other commands
 

@@ -185,7 +185,7 @@ WHERE name LIKE 'pgaudit%';
 ```
 
 ### Dropping roles
-
+```
 pghyd_db=# drop role pwi_core;
 ERROR:  role "pwi_core" cannot be dropped because some objects depend on it
 DETAIL:  privileges for table pghyd_employees
@@ -197,3 +197,11 @@ REVOKE ALL PRIVILEGES ON pghyd_employees FROM pwi_core;
 
 DROP POLICY pwi_core_access ON pghyd_employees;
 DROP POLICY restrict_deletes_pwi_core ON pghyd_employees;
+```
+
+### Default privileges
+
+SELECT defaclrole::regrole AS grantor, defaclnamespace::regnamespace AS schema, defaclobjtype AS object_type, defaclacl AS privileges from pg_default_acl;
+
+revoke usage on schema public from auser;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public REVOKE ALL PRIVILEGES ON TABLES FROM postgres;

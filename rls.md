@@ -183,3 +183,17 @@ SELECT name, setting
 FROM pg_settings
 WHERE name LIKE 'pgaudit%';
 ```
+
+### Dropping roles
+
+pghyd_db=# drop role pwi_core;
+ERROR:  role "pwi_core" cannot be dropped because some objects depend on it
+DETAIL:  privileges for table pghyd_employees
+target of policy pwi_core_access on table pghyd_employees
+target of policy restrict_deletes_pwi_core on table pghyd_employees
+pghyd_db=# 
+
+REVOKE ALL PRIVILEGES ON pghyd_employees FROM pwi_core;
+
+DROP POLICY pwi_core_access ON pghyd_employees;
+DROP POLICY restrict_deletes_pwi_core ON pghyd_employees;

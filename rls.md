@@ -36,6 +36,8 @@ Ensure that all actions on employee records comply with data governance policies
 ### Scripts
 
 ```
+-- Step 1: Create database
+
 -- Create the database
 CREATE DATABASE pghyd_db;
 
@@ -54,7 +56,7 @@ CREATE TABLE pghyd_employees (
     CONSTRAINT phone_number_encrypt CHECK (phone_number IS NOT NULL)
 );
 
-Step 2: Create Roles
+-- Step 2: Create Roles
 
 -- Create roles
 CREATE ROLE pghyd_viewer;
@@ -62,7 +64,7 @@ CREATE ROLE pghyd_core;
 CREATE ROLE pwi_core;
 CREATE ROLE pwi_regular;
 
-Step 3: Grant Permissions to Roles
+-- Step 3: Grant Permissions to Roles
 
 -- Grant full access to pghyd_core and pwi_core roles
 GRANT SELECT, INSERT, UPDATE, DELETE ON pghyd_employees TO pghyd_core;
@@ -74,12 +76,12 @@ GRANT SELECT ON pghyd_employees TO pwi_regular;
 -- Grant SELECT access on few columns to pghyd_viewer
 GRANT SELECT (name, department,organization, finalized) ON pghyd_employees TO pghyd_viewer;
 
-Step 4: Enable Row-Level Security
+-- Step 4: Enable Row-Level Security
 
 -- Enable row-level security on the table
 ALTER TABLE pghyd_employees ENABLE ROW LEVEL SECURITY;
 
-Step 5: Create Row-Level Security Policies
+-- Step 5: Create Row-Level Security Policies
 
 -- pghyd_core: Full access to all data
 CREATE POLICY pghyd_core_access ON pghyd_employees
@@ -107,7 +109,7 @@ FOR DELETE
 TO pwi_core
 USING (FALSE);
 
-Step 6: Insert Sample Data
+-- Step 6: Insert Sample Data
 
 -- Sample data insertion (you will need to use pgcrypto for phone_number)
 -- Sample data insertion with pgcrypto for phone_number

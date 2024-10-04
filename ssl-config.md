@@ -74,5 +74,8 @@ mv client.crt postgresql.crt
 
 psql "host=192.168.113.133 dbname=postgres user=postgres sslmode=verify-full sslcert=client.crt sslkey=client.key sslrootcert=ca.crt"
 
+## check for auser from client for
+hostssl    all             all            0.0.0.0/0	md5  clientcert=verify-full
+hostssl    all             all            0.0.0.0/0	md5  clientcert=verify-ca
 
 ```

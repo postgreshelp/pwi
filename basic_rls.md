@@ -1,3 +1,37 @@
+```
+
+kfc_db=# create user kfc1 with password 'kfc1' noinherit;
+CREATE ROLE
+kfc_db=# create user kfc2 with password 'kfc2'
+kfc_db-# ;
+CREATE ROLE
+
+kfc_db=# grant kfc_user to kfc2;
+GRANT ROLE
+
+kfc_db=# grant kfc_user to kfc1;
+GRANT ROLE
+
+[postgres@rel92 ~]$ psql -U kfc1 -d kfc_db
+psql (17.0)
+Type "help" for help.
+
+kfc_db=> select * from kfc_user.emp;
+ERROR:  permission denied for schema kfc_user
+LINE 1: select * from kfc_user.emp;
+                      ^
+kfc_db=> \q
+[postgres@rel92 ~]$ psql -U kfc2 -d kfc_db
+psql (17.0)
+Type "help" for help.
+
+kfc_db=> select * from kfc_user.emp;
+ id | sal 
+----+-----
+(0 rows)
+
+kfc_db=> 
+
 create table emp(id int, name varchar(100), phone int);
 insert into emp values(1,'user1', 12345);
 insert into emp values(2,'user2', 12345);
@@ -21,6 +55,7 @@ create policy user1_policy on emp for all to public using (name=current_user);
 \c postgres user1
 
 select * from emp;
+```
 
 Other commands
 

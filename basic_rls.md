@@ -1,4 +1,5 @@
 ```
+GRANT SELECT (name, department,organization, finalized) ON pghyd_employees TO pghyd_viewer;
 
 kfc_db=# create user kfc1 with password 'kfc1' noinherit;
 CREATE ROLE

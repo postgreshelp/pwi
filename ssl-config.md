@@ -36,6 +36,11 @@ mkdir ~/.postgresql
 scp client.crt client.key ca.crt 192.168.113.137:/home/postgres.postgresql/
 chmod 600 /home/postgres/.postgresql/client.key
 
+## Rename the files
+
+chmod 600 client.key
+mv client.key postgresql.key
+mv client.crt postgresql.crt
 
 ##Checking
 
@@ -64,6 +69,10 @@ Type "help" for help.
 postgres=#
 
 chmod 600 client.key
+mv client.key postgresql.key
+mv client.crt postgresql.crt
 
 psql "host=192.168.113.133 dbname=postgres user=postgres sslmode=verify-full sslcert=client.crt sslkey=client.key sslrootcert=ca.crt"
+
+
 ```
